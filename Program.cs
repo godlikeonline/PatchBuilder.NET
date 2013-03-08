@@ -18,6 +18,10 @@ namespace PatchBuilder.NET {
                         Environment.Exit(0);
                     } else {
                         //Correct number of arguments - ready to attempt processing.
+                        if(!File.Exists(Constants.PROCESS_FILE)) {
+                            Console.WriteLine(Constants.PROCESS_FILE + " not found.  Place this file as input in the same directory as this exe.");
+                            Environment.Exit(0);
+                        }
                         string[] filesToProcess = File.ReadAllLines(Constants.PROCESS_FILE);
                         WalkDirectoryTree(filesToProcess, args[0], String.Empty, new DirectoryInfo(args[0]));
                         TargetDirectoryOutputFiles.WriteToDisk(args[1]);

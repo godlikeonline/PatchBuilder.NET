@@ -1,11 +1,11 @@
-# PatchBuilder.NET # 
+# PatchBuilder.NET 
 
 A patch release package builder for .NET
 
 Have a need, build a tool.
 
 ## USE CASE ##
-Solution is deployed to client production environment and they have a bug that requires a fix.
+Solution is deployed to client production environment (on windows) and they have a bug that requires a fix.
 Fix involves a patch release rather than a full release.
 
 If it is a large solution your fixed deployables may need to be deployed to multiple locations on the target environment (be it production, UAT or otherwise).
@@ -21,7 +21,7 @@ Output is placed in C:\Temp\PatchBuilder.NET\<value of second argument>
 
 For further help run the tool with no arguments or with the single argument 'help'.
 
-If you navigate to the C:\Temp\PatchBuilder.NET\<value of second argument> directory you will find a collection of text files, a batch file and two subdirectories.  
+If you navigate to the C:\Temp\PatchBuilder.NET\<value of second argument> directory you will find a collection of text files, a DOS batch file and two subdirectories.  
 ### patchfiles subdirectory ###
 Copy the fixed versions of your deployables in this directory
 ### Documents subdirectory ###
