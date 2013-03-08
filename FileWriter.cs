@@ -4,8 +4,7 @@ using System.Text;
 
 namespace PatchBuilder.NET {
     public class FileWriter {
-        
-        private static StringBuilder _FilesToDeploy = new StringBuilder();
+        private static readonly StringBuilder FilesToDeploy = new StringBuilder();
 
         public static void CleanDirectory(string packageDirectory) {
             string finalOutputDirectory = Constants.DEFAULT_OUTPUT_DIRECTORY + packageDirectory;
@@ -43,16 +42,16 @@ namespace PatchBuilder.NET {
         public static void BuildDeployFile(string packageDirectory, string processFile) {
             string[] files = File.ReadAllLines(processFile);
             foreach (string file in files) {
-                _FilesToDeploy.Append(file + Environment.NewLine);
+                FilesToDeploy.Append(file + Environment.NewLine);
                 if (file.Contains("dll")) {
                     //Also deploy the pdb
                     int lastDot = file.LastIndexOf('.');
                     string pdbFilename = file.Substring(0, lastDot) + ".pdb";
-                    _FilesToDeploy.Append(pdbFilename + Environment.NewLine);
+                    FilesToDeploy.Append(pdbFilename + Environment.NewLine);
                 }
             }
             string deployFile = Constants.DEFAULT_OUTPUT_DIRECTORY + EnsureTrailingSlash(packageDirectory) + Constants.DEPLOY_FILE;
-            File.WriteAllText(deployFile, _FilesToDeploy.ToString());
+            File.WriteAllText(deployFile, FilesToDeploy.ToString());
         }
     }
 }

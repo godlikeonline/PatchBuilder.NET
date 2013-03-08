@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PatchBuilder.NET {
     public class TargetDirectoriesItemCollection {
-        private static List<TargetDirectoriesItem> Collection = new List<TargetDirectoriesItem>();
+        private static readonly List<TargetDirectoriesItem> Collection = new List<TargetDirectoriesItem>();
         private static List<string> Names = new List<string>();
         
         public void Add(string name) {

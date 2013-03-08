@@ -1,5 +1,4 @@
-﻿namespace PatchBuilder.NET
-{
+﻿namespace PatchBuilder.NET {
     public class Constants {
         public const string DIR_SEP = @"\";
         public const string DEFAULT_OUTPUT_DIRECTORY = @"C:\Temp\PatchBuilder.NET\";

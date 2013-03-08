@@ -3,7 +3,7 @@ using System.IO;
 
 namespace PatchBuilder.NET {
     public class Program {
-        private static TargetDirectoriesItemCollection TargetDirectoryOutputFiles = new TargetDirectoriesItemCollection();
+        private static readonly TargetDirectoriesItemCollection TargetDirectoryOutputFiles = new TargetDirectoriesItemCollection();
         
         public static void Main(string[] args) {
             if (args.Length == 0 || args[0].ToLower().Equals("help")) {
@@ -22,11 +22,9 @@ namespace PatchBuilder.NET {
                         WalkDirectoryTree(filesToProcess, args[0], String.Empty, new DirectoryInfo(args[0]));
                         TargetDirectoryOutputFiles.WriteToDisk(args[1]);
 
-                        //Adjust for PDB Files
-                        FileWriter.BuildDeployFile(args[1], Constants.PROCESS_FILE);
-                        
-                        FileWriter.AddPackageDirectories(args[1]);
+                        FileWriter.BuildDeployFile(args[1], Constants.PROCESS_FILE); //Adjust for PDB Files
                         BatchFileWriter.Build(args[1]);
+                        FileWriter.AddPackageDirectories(args[1]);
                     }
                 }
             }
@@ -34,8 +32,8 @@ namespace PatchBuilder.NET {
 
         private static void PrintHelp() {
             Console.WriteLine("Enter the root directory of the solution to be processed and release package name (e.g. \"<client> Applications v1.34.2\")." + Environment.NewLine +
-                              "For Example: PatchReleaseHelper C:\\MySolutionRoot \"Client Applications v1.34.2\"" + Environment.NewLine +
-                              "Output will be placed in C:\\Temp\\PatchBuilder.NET");
+                              "For Example: PatchBuilder.NET C:\\MySolutionRoot \"Client Applications v1.34.2\"" + Environment.NewLine +
+                              "Output will be placed in C:\\Temp\\PatchBuilder.NET\\<release package name>");
             Environment.Exit(0);
         }
 

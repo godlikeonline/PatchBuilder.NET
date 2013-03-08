@@ -2,7 +2,7 @@
 
 namespace PatchBuilder.NET {
     public class BatchFileWriter {
-        private static StringBuilder BatchFile = new StringBuilder();
+        private static readonly StringBuilder BatchFile = new StringBuilder();
 
         public static void Build(string outputDirectory) {
             BatchFile.AppendLine("@ECHO OFF");
