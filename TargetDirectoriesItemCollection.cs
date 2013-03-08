@@ -5,9 +5,7 @@ using System.Text;
 namespace PatchBuilder.NET {
     public class TargetDirectoriesItemCollection {
         private static List<TargetDirectoriesItem> Collection = new List<TargetDirectoriesItem>();
-        
         private static List<string> Names = new List<string>();
-        private const string TARGETDIRS_SUFFIX = ".TargetDirectories.txt";
         
         public void Add(string name) {
             if(!HasItemWithName(name)) {
@@ -33,15 +31,15 @@ namespace PatchBuilder.NET {
             itemToAppendTo.StringBuilder.Append(stringToAppend + Environment.NewLine);
         }
 
-        public void WriteToDisk() {
-            FileWriter.CleanDirectory();
+        public void WriteToDisk(string outDirectory) {
+            FileWriter.CleanDirectory(outDirectory);
             foreach(TargetDirectoriesItem item in Collection) {
                 string content = item.StringBuilder.ToString();
-                FileWriter.Write(item.Name + TARGETDIRS_SUFFIX, content);
+                FileWriter.Write(outDirectory, item.Name + Constants.TARGETDIRS_SUFFIX, content);
                 if (item.Name.Contains("dll")) {
                     int lastDot = item.Name.LastIndexOf('.');
                     string pdbFilename = item.Name.Substring(0, lastDot) + ".pdb";
-                    FileWriter.Write(pdbFilename + TARGETDIRS_SUFFIX, content);
+                    FileWriter.Write(outDirectory, pdbFilename + Constants.TARGETDIRS_SUFFIX, content);
                 }
             }
         }

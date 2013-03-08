@@ -4,25 +4,43 @@ using System.Text;
 
 namespace PatchBuilder.NET {
     public class FileWriter {
-        private const string OUTPUT_DIRECTORY = @"C:\Temp\PatchReleaseHelper\";
-        private const string DEPLOY_FILE = @"FilesToDeploy.txt";
+        
         private static StringBuilder _FilesToDeploy = new StringBuilder();
 
-        public static void CleanDirectory() {
-            if (!Directory.Exists(OUTPUT_DIRECTORY)) {
-                Directory.CreateDirectory(OUTPUT_DIRECTORY);
-            } else {
-                foreach (string filePath in Directory.GetFiles(OUTPUT_DIRECTORY)) {
-                    File.Delete(filePath);
-                }
+        public static void CleanDirectory(string packageDirectory) {
+            string finalOutputDirectory = Constants.DEFAULT_OUTPUT_DIRECTORY + packageDirectory;
+            EnsureDirectoryExists(Constants.DEFAULT_OUTPUT_DIRECTORY);
+            EnsureDirectoryExists(finalOutputDirectory);
+            foreach (string filePath in Directory.GetFiles(finalOutputDirectory)) {
+                File.Delete(filePath);
             }
         }
 
-        public static void Write(string filename, string content) {
-            File.WriteAllText(OUTPUT_DIRECTORY + filename, content);
+        public static void Write(string outDirectory, string filename, string content) {
+            File.WriteAllText(Constants.DEFAULT_OUTPUT_DIRECTORY + EnsureTrailingSlash(outDirectory) + filename, content);
         }
 
-        public static void BuildDeployFile(string processFile) {
+        public static void AddPackageDirectories(string packageDirectory) {
+            string rootDirectory = Constants.DEFAULT_OUTPUT_DIRECTORY + EnsureTrailingSlash(packageDirectory);
+            if (!Directory.Exists(rootDirectory + Constants.PATCH_FILES_DIRECTORY)) {
+                Directory.CreateDirectory(rootDirectory + Constants.PATCH_FILES_DIRECTORY);
+            }
+            if (!Directory.Exists(rootDirectory + Constants.DOCUMENTS_DIRECTORY)) {
+                Directory.CreateDirectory(rootDirectory + Constants.DOCUMENTS_DIRECTORY);
+            }
+        }
+
+        private static void EnsureDirectoryExists(string directory) {
+            if (!Directory.Exists(directory)) {
+                Directory.CreateDirectory(directory);
+            }
+        }
+
+        private static string EnsureTrailingSlash(string s) {
+            return s.TrimEnd('\\') + @"\";
+        }
+
+        public static void BuildDeployFile(string packageDirectory, string processFile) {
             string[] files = File.ReadAllLines(processFile);
             foreach (string file in files) {
                 _FilesToDeploy.Append(file + Environment.NewLine);
@@ -33,7 +51,8 @@ namespace PatchBuilder.NET {
                     _FilesToDeploy.Append(pdbFilename + Environment.NewLine);
                 }
             }
-            File.WriteAllText(OUTPUT_DIRECTORY + DEPLOY_FILE, _FilesToDeploy.ToString());
+            string deployFile = Constants.DEFAULT_OUTPUT_DIRECTORY + EnsureTrailingSlash(packageDirectory) + Constants.DEPLOY_FILE;
+            File.WriteAllText(deployFile, _FilesToDeploy.ToString());
         }
     }
 }
