@@ -10,7 +10,9 @@ Fix involves a patch release rather than a full release.
 
 If it is a large solution your fixed deployables may need to be deployed to multiple locations on the target environment (be it production, UAT or otherwise).
 
-This tool does all the laborious work for you.
+This tool does all the laborious work for you by working out where your patch files will need to be copied to.
+
+It creates a batch file and support text files to achieve this.
 
 ## HOW TO USE CONSOLE APPLICATION ##
 This tool must be run on an environment that matches the target environment. 
