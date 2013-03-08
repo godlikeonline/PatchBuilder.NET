@@ -1,11 +1,10 @@
-PatchBuilder.NET
-================
+# PatchBuilder.NET # 
 
 A patch release package builder for .NET
 
 Have a need, build a tool.
 
-USE CASE:
+## USE CASE ##
 Solution is deployed to client production environment and they have a bug that requires a fix.
 Fix involves a patch release rather than a full release.
 
@@ -13,7 +12,7 @@ If it is a large solution your fixed deployables may need to be deployed to mult
 
 This tool does all the laborious work for you.
 
-HOW TO USE CONSOLE APPLICATION:
+## HOW TO USE CONSOLE APPLICATION ##
 This tool must be run on an environment that matches the target environment. 
 The first argument is the root directory of the compiled solution on an environment that matches the target environment (say Test or Staging).
 
@@ -23,7 +22,7 @@ Output is placed in C:\Temp\PatchBuilder.NET\<value of second argument>
 For further help run the tool with no arguments or with the single argument 'help'.
 
 If you navigate to the C:\Temp\PatchBuilder.NET\<value of second argument> directory you will find a collection of text files, a batch file and two subdirectories.  
-patchfiles subdirectory:
+### patchfiles subdirectory ###
 Copy the fixed versions of your deployables in this directory
-Documents subdirectory:
+### Documents subdirectory ###
 Place deployment guide and release notes documents in this folder for the client.
