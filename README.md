@@ -16,7 +16,9 @@ This tool does all the laborious work for you.
 This tool must be run on an environment that matches the target environment. 
 The first argument is the root directory of the compiled solution on an environment that matches the target environment (say Test or Staging).
 
-Place a file called FilesToProcess.txt in the same directory as the EXE.  This input file simply lists the names, including extensions of the deployables that your patch fixes.
+Place a file called FilesToProcess.txt in the same directory as the EXE.  This input file simply lists the names, including extensions, of the deployables that your patch consists of.
+Current behaviour is inclusion of the matching pdb file for every dll.
+
 Output is placed in C:\Temp\PatchBuilder.NET\<value of second argument>
 
 For further help run the tool with no arguments or with the single argument 'help'.
@@ -25,4 +27,4 @@ If you navigate to the C:\Temp\PatchBuilder.NET\<value of second argument> direc
 ### patchfiles subdirectory ###
 Copy the fixed versions of your deployables in this directory
 ### Documents subdirectory ###
-Place deployment guide and release notes documents in this folder for the client.
+Place deployment guide and release note documents in this folder for your client.
