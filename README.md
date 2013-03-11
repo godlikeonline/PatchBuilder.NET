@@ -5,28 +5,34 @@ A patch release package builder for .NET
 Have a need, build a tool.
 
 ## USE CASE ##
-Solution is deployed to client production environment (on windows) and they have a bug that requires a fix.
-Fix involves a patch release rather than a full release.
+Your solution is already deployed to your client production environment (on windows) and they have a bug that requires a fix.
+You (or a manager) decides that the approach will be to apply a patch release rather than a full release to the client environment to address the issue(s).
 
-If it is a large solution your fixed deployables may need to be deployed to multiple locations on the target environment (be it production, UAT or otherwise).
+If it is a large solution your fixed deployables may need to be deployed to multiple locations (directories) on the target environment (be it production, UAT or otherwise).
 
 This tool does all the laborious work for you by working out where your patch files will need to be copied to.
 
-It creates a batch file and support text files to achieve this.
-
 ## HOW TO USE CONSOLE APPLICATION ##
-This tool must be run on an environment that matches the target environment. 
-The first argument is the root directory of the compiled solution on an environment that matches the target environment (say Test or Staging).
+1. First you copy this tool's executable to an environment that matches the target environment (e.g. staging or production support environment)
+2. In the same directory that you place this tool's executable, place a file called FilesToProcess.txt that lists the files that consist the patch / fix.  This input file simply lists the names (including extensions), of the deployables that your patch consists of.
+(Current behaviour is inclusion of the matching pdb file for every dll.)
 
-Place a file called FilesToProcess.txt in the same directory as the EXE.  This input file simply lists the names, including extensions, of the deployables that your patch consists of.
-Current behaviour is inclusion of the matching pdb file for every dll.
+The first argument is the root directory of the compiled solution on an environment that matches the target environment (say Test or Staging).
 
 Output is placed in C:\Temp\PatchBuilder.NET\<value of second argument>
 
 For further help run the tool with no arguments or with the single argument 'help'.
 
-If you navigate to the C:\Temp\PatchBuilder.NET\<value of second argument> directory you will find a collection of text files, a DOS batch file and two subdirectories.  
+
+
+## HOW DOES IT WORK? ##
+The loops through all the subdirectories of the root folder searching for the files listed in FilesToProcess.txt.  
+It emits the locations of these files to other text files and a batch file that uses these text files to perform the copy operation.
+
+## AFTER YOU HAVE RUN THE TOOL, WHAT NOW? ##
+Navigate to the C:\Temp\PatchBuilder.NET\<value of second argument> directory and you will find a collection of text files, a DOS batch file and two subdirectories:
 ### patchfiles subdirectory ###
-Copy the fixed versions of your deployables in this directory
+Copy the fixed versions of your deployables (that you have compiled in your IDE) into this directory
 ### Documents subdirectory ###
-Place deployment guide and release note documents in this folder for your client.
+Place a deployment guide and release notes document in this folder for your client.
+The deployment guide will tell them to run batch file in their target environment.
