@@ -17,17 +17,16 @@ This tool does all the laborious work for you by working out where your patch fi
 2. In the same directory that you place this tool's executable, place a file called FilesToProcess.txt that lists the files that consist the patch / fix.  This input file simply lists the names (including extensions), of the deployables that your patch consists of.
 (Current behaviour is inclusion of the matching pdb file for every dll.)
 
-The first argument is the root directory of the compiled solution on an environment that matches the target environment (say Test or Staging).
+The first argument is the root directory of the solution deployed to an environment that matches the target environment (say Test or Staging).
 
 Output is placed in C:\Temp\PatchBuilder.NET\<value of second argument>
 
 For further help run the tool with no arguments or with the single argument 'help'.
 
 
-
 ## HOW DOES IT WORK? ##
-The loops through all the subdirectories of the root folder searching for the files listed in FilesToProcess.txt.  
-It emits the locations of these files to other text files and a batch file that uses these text files to perform the copy operation.
+During phase 1, the discovery phase, the tool loops through all the subdirectories of the root folder searching for the files listed in FilesToProcess.txt.  
+During phase 2, the emission phase, the locations of these files are written to text files (one per entry in FilesToProcess.txt) and a batch file. The batch file uses the text files written by this tool to perform the copy operation on the target environment.
 
 ## AFTER YOU HAVE RUN THE TOOL, WHAT NOW? ##
 Navigate to the C:\Temp\PatchBuilder.NET\<value of second argument> directory and you will find a collection of text files, a DOS batch file and two subdirectories:
