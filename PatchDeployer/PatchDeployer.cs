@@ -57,18 +57,17 @@ namespace PatchDeployer {
         }
 
         private static Process CreateCmdProcess() {
-            Process cmdProcess = new Process();
-
-            cmdProcess.StartInfo = new ProcessStartInfo(@"c:\windows\system32\cmd.exe");
-            cmdProcess.StartInfo.CreateNoWindow = true;
-            cmdProcess.StartInfo.ErrorDialog = false;
-            cmdProcess.StartInfo.RedirectStandardError = true;
-            cmdProcess.StartInfo.RedirectStandardInput = true;
-            cmdProcess.StartInfo.RedirectStandardOutput = true;
-            cmdProcess.StartInfo.UseShellExecute = false;
-            cmdProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-            return cmdProcess;
+            return new Process {
+                                    StartInfo = new ProcessStartInfo(@"c:\windows\system32\cmd.exe") {
+                                                CreateNoWindow = true,
+                                                ErrorDialog = false,
+                                                RedirectStandardError = true,
+                                                RedirectStandardInput = true,
+                                                RedirectStandardOutput = true,
+                                                UseShellExecute = false,
+                                                WindowStyle = ProcessWindowStyle.Hidden
+                                        }
+                                };
         }
 
         private static void ExitProcess(Process process) {
