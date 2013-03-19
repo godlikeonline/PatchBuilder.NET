@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatchBuilder.NET", "PatchBuilder.NET.csproj", "{189820A8-EAC0-4CF7-A8F3-F7082EF55F47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatchBuilder.NET", "PatchBuilder\PatchBuilder.NET.csproj", "{189820A8-EAC0-4CF7-A8F3-F7082EF55F47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatchDeployer", "PatchDeployer\PatchDeployer.csproj", "{4BDCECC9-A095-4921-97F2-375329A97885}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{189820A8-EAC0-4CF7-A8F3-F7082EF55F47}.Debug|x86.Build.0 = Debug|x86
 		{189820A8-EAC0-4CF7-A8F3-F7082EF55F47}.Release|x86.ActiveCfg = Release|x86
 		{189820A8-EAC0-4CF7-A8F3-F7082EF55F47}.Release|x86.Build.0 = Release|x86
+		{4BDCECC9-A095-4921-97F2-375329A97885}.Debug|x86.ActiveCfg = Debug|x86
+		{4BDCECC9-A095-4921-97F2-375329A97885}.Debug|x86.Build.0 = Debug|x86
+		{4BDCECC9-A095-4921-97F2-375329A97885}.Release|x86.ActiveCfg = Release|x86
+		{4BDCECC9-A095-4921-97F2-375329A97885}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

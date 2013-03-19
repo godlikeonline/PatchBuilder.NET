@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{189820A8-EAC0-4CF7-A8F3-F7082EF55F47}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{4BDCECC9-A095-4921-97F2-375329A97885}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PatchBuilder.NET</RootNamespace>
-    <AssemblyName>PatchBuilder.NET</AssemblyName>
+    <RootNamespace>PatchDeployer</RootNamespace>
+    <AssemblyName>PatchDeployer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -36,20 +36,25 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BatchFileWriter.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="FileWriter.cs" />
+    <Compile Include="File\FileMover.cs" />
+    <Compile Include="File\FileWriter.cs" />
+    <Compile Include="PatchDeployer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PatchDeployer.Designer.cs">
+      <DependentUpon>PatchDeployer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TargetDirectoriesItem.cs" />
-    <Compile Include="TargetDirectoriesItemCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PatchDeployer.resx">
+      <DependentUpon>PatchDeployer.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
