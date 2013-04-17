@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PatchBuilder.NET {
     public class TargetDirectoriesItemCollection {
         private static readonly List<TargetDirectoriesItem> Collection = new List<TargetDirectoriesItem>();
-        private static List<string> Names = new List<string>();
+        private static readonly List<string> Names = new List<string>();
         
         public void Add(string name) {
             if(!HasItemWithName(name)) {
@@ -19,11 +20,13 @@ namespace PatchBuilder.NET {
         }
 
         public string[] GetNames() {
-            List<string> a = new List<string>();
-            foreach(TargetDirectoriesItem item in Collection) {
-                a.Add(item.Name);
-            }
-            return a.ToArray();
+            return Collection.Select(item => item.Name).ToArray();
+
+            //var list = new List<string>();
+            //foreach (var item in Collection) {
+            //    list.Add(item.Name);
+            //}
+            //return list.ToArray();
         }
 
         public void Append(string name, string stringToAppend) {
@@ -45,12 +48,14 @@ namespace PatchBuilder.NET {
         }
         
         private TargetDirectoriesItem GetItem(string name) {
-            foreach(TargetDirectoriesItem item in Collection) {
-                if (item.Name.Equals(name)) {
-                    return item;
-                }
-            }
-            return null;
+            return Collection.FirstOrDefault(item => item.Name.Equals(name));
+
+            //foreach (TargetDirectoriesItem item in Collection) {
+            //    if (item.Name.Equals(name)) {
+            //        return item;
+            //    }
+            //}
+            //return null;
         }
     }
 }

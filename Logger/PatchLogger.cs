@@ -2,13 +2,11 @@
 
 namespace Logger {
     public class PatchLogger {
-        public EventLog _eventLog {get; set;}
+        public EventLog EventLog {get; set;}
         private const string LOG = "Application";
 
         public PatchLogger(string serviceName) {
-            _eventLog = new EventLog();
-            _eventLog.Source = serviceName;
-            _eventLog.Log = LOG;
+            EventLog = new EventLog {Source = serviceName, Log = LOG};
         }
     }
 }

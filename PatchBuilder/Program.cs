@@ -43,15 +43,15 @@ namespace PatchBuilder.NET {
 
         private static void WalkDirectoryTree(string[] filesToProcess, string appRoot, string modifiedPath, DirectoryInfo root) {
             //Now find all the subdirectories under this directory.
-            DirectoryInfo[] subDirs = root.GetDirectories();
+            var subDirs = root.GetDirectories();
 
-            foreach (DirectoryInfo dirInfo in subDirs) {
+            foreach (var dirInfo in subDirs) {
                 //Recursive call for each subdirectory.
                 WalkDirectoryTree(filesToProcess, appRoot, modifiedPath + dirInfo.Name + Constants.DIR_SEP, dirInfo);
 
                 foreach (string fileToProcess in filesToProcess) {
                     TargetDirectoryOutputFiles.Add(fileToProcess);
-                    string file = appRoot + Constants.DIR_SEP + modifiedPath + dirInfo.Name + Constants.DIR_SEP + fileToProcess;
+                    var file = appRoot + Constants.DIR_SEP + modifiedPath + dirInfo.Name + Constants.DIR_SEP + fileToProcess;
                     if (File.Exists(file)) {
                         TargetDirectoryOutputFiles.Append(fileToProcess, modifiedPath + dirInfo.Name + Constants.DIR_SEP);
                     }

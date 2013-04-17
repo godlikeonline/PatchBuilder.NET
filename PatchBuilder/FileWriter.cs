@@ -50,7 +50,7 @@ namespace PatchBuilder.NET {
                     FilesToDeploy.Append(pdbFilename + Environment.NewLine);
                 }
             }
-            string deployFile = Constants.DEFAULT_OUTPUT_DIRECTORY + EnsureTrailingSlash(packageDirectory) + Constants.DEPLOY_FILE;
+            var deployFile = Constants.DEFAULT_OUTPUT_DIRECTORY + EnsureTrailingSlash(packageDirectory) + Constants.DEPLOY_FILE;
             File.WriteAllText(deployFile, FilesToDeploy.ToString());
         }
     }

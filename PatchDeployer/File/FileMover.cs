@@ -1,16 +1,17 @@
 ﻿using System.IO;
-namespace PatchDeployer {
+
+namespace PatchDeployer.File {
     public class FileMover {
         public static int MoveFiles(string from, string to) {
-            DirectoryInfo fromDir = new DirectoryInfo(from);
-            DirectoryInfo toDir = new DirectoryInfo(to);
+            var fromDir = new DirectoryInfo(from);
+            var toDir = new DirectoryInfo(to);
 
-            FileInfo[] fromFiles = fromDir.GetFiles("*.*");
+            var fromFiles = fromDir.GetFiles("*.*");
             if (fromFiles.Length > 0) {
                 foreach (FileInfo file in fromFiles) {
                     string targetFile = toDir + file.Name;
-                    if (File.Exists(targetFile)) {
-                        File.Delete(targetFile);
+                    if (System.IO.File.Exists(targetFile)) {
+                        System.IO.File.Delete(targetFile);
                     }
                     file.MoveTo(targetFile);
                 }

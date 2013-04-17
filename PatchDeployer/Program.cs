@@ -9,10 +9,7 @@ namespace PatchDeployer
         /// </summary>
         static void Main()
         {
-            ServiceBase[] servicesToRun = new ServiceBase[] 
-                                              { 
-                                                  new PatchDeployer() 
-                                              };
+            var servicesToRun = new ServiceBase[] { new PatchDeployer() };
             ServiceBase.Run(servicesToRun);
         }
     }

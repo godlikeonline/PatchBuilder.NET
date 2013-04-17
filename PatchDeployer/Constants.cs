@@ -9,5 +9,8 @@
         public const string PATCH_FILES_DIRECTORY = WORKING_DIRECTORY + @"patchfiles";
         public const string PROCESS_FILE = @"FilesToProcess.txt";
         public const string BATCH_FILE_NAME = WORKING_DIRECTORY + "DeployPatch.bat";
+        public const string PERIOD = ".";
+        public const string DLL_EXTENSION = "dll";
+        public const string PDB_EXTENSION = "pdb";
     }
 }

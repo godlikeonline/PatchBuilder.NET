@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Text;
 
-namespace PatchDeployer {
+namespace PatchDeployer.File {
     public class FileWriter {
         private static readonly StringBuilder LogFile = new StringBuilder();
         private static readonly StringBuilder FilesToProcessFile = new StringBuilder();
@@ -22,7 +21,7 @@ namespace PatchDeployer {
         }
 
         private static void WriteFile(string filename, string content) {
-            File.WriteAllText(filename, content);
+            System.IO.File.WriteAllText(filename, content);
         }
     }
 }

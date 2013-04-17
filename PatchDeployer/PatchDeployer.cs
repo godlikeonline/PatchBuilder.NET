@@ -2,12 +2,12 @@
 using System.IO;
 using System.ServiceProcess;
 using Logger;
+using PatchDeployer.File;
 
 namespace PatchDeployer {
     public partial class PatchDeployer : ServiceBase {
         private const string SERVICE_NAME = "PatchDeployer";
         
-
         public PatchDeployer() {
             InitializeComponent();
             ServiceName = SERVICE_NAME;
@@ -26,8 +26,8 @@ namespace PatchDeployer {
 
         //Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e) {
-            PatchLogger logger = new PatchLogger(SERVICE_NAME);
-            DeploymentSet deploymentSet = new DeploymentSet(Directory.GetFiles(Constants.POLL_DIRECTORY));
+            var logger = new PatchLogger(SERVICE_NAME);
+            var deploymentSet = new DeploymentSet(Directory.GetFiles(Constants.POLL_DIRECTORY));
             
             if(deploymentSet.IsValid()) {
                 //Move files from POLL to PROCESSING directory
@@ -43,25 +43,23 @@ namespace PatchDeployer {
                 FileMover.MoveFiles(Constants.INPROCESS_DIRECTORY, Constants.PATCH_FILES_DIRECTORY);
 
                 //Execute DeployPatch.bat
-                if(File.Exists(Constants.BATCH_FILE_NAME)) {
+                if(System.IO.File.Exists(Constants.BATCH_FILE_NAME)) {
                     RunBatchFile(@"C:\PRODUCTION\");
                 }
             } else {
-                logger._eventLog.WriteEntry("Deployment set is invalid. Nothing deployed.", EventLogEntryType.Error);
+                logger.EventLog.WriteEntry("Deployment set is invalid. Nothing deployed.", EventLogEntryType.Error);
             }
         }
 
         private static void RunPatchBuilder(string rootDir, string packageName) {
-            Process cmdProcess = CreateCmdProcess();
-
+            var cmdProcess = CreateCmdProcess();
             cmdProcess.Start();
             cmdProcess.StandardInput.WriteLine("PatchBuilder.NET " + rootDir + " " + packageName);
             ExitProcess(cmdProcess);
         }
 
         private static void RunBatchFile(string rootDir) {
-            Process cmdProcess = CreateCmdProcess();
-
+            var cmdProcess = CreateCmdProcess();
             cmdProcess.Start();
             cmdProcess.StandardInput.WriteLine("DeployPatch.bat " + rootDir);
             ExitProcess(cmdProcess);
