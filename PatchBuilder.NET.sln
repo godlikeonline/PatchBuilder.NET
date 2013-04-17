@@ -47,6 +47,7 @@ Global
 		{E9285B18-7B61-433B-B520-ADFE4C0497A1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E9285B18-7B61-433B-B520-ADFE4C0497A1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E9285B18-7B61-433B-B520-ADFE4C0497A1}.Release|x86.ActiveCfg = Release|Any CPU
+		{E9285B18-7B61-433B-B520-ADFE4C0497A1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
