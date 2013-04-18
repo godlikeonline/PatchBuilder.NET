@@ -21,12 +21,6 @@ namespace PatchBuilder.NET {
 
         public string[] GetNames() {
             return Collection.Select(item => item.Name).ToArray();
-
-            //var list = new List<string>();
-            //foreach (var item in Collection) {
-            //    list.Add(item.Name);
-            //}
-            //return list.ToArray();
         }
 
         public void Append(string name, string stringToAppend) {
@@ -49,13 +43,6 @@ namespace PatchBuilder.NET {
         
         private TargetDirectoriesItem GetItem(string name) {
             return Collection.FirstOrDefault(item => item.Name.Equals(name));
-
-            //foreach (TargetDirectoriesItem item in Collection) {
-            //    if (item.Name.Equals(name)) {
-            //        return item;
-            //    }
-            //}
-            //return null;
         }
     }
 }
