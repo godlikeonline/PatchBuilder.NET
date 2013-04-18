@@ -7,10 +7,10 @@ namespace PatchBuilder.NET {
         private static readonly StringBuilder FilesToDeploy = new StringBuilder();
 
         public static void CleanDirectory(string packageDirectory) {
-            string finalOutputDirectory = Constants.DEFAULT_OUTPUT_DIRECTORY + packageDirectory;
+            var finalOutputDirectory = Constants.DEFAULT_OUTPUT_DIRECTORY + packageDirectory;
             EnsureDirectoryExists(Constants.DEFAULT_OUTPUT_DIRECTORY);
             EnsureDirectoryExists(finalOutputDirectory);
-            foreach (string filePath in Directory.GetFiles(finalOutputDirectory)) {
+            foreach(var filePath in Directory.GetFiles(finalOutputDirectory)) {
                 File.Delete(filePath);
             }
         }
@@ -20,17 +20,17 @@ namespace PatchBuilder.NET {
         }
 
         public static void AddPackageDirectories(string packageDirectory) {
-            string rootDirectory = Constants.DEFAULT_OUTPUT_DIRECTORY + EnsureTrailingSlash(packageDirectory);
-            if (!Directory.Exists(rootDirectory + Constants.PATCH_FILES_DIRECTORY)) {
+            var rootDirectory = Constants.DEFAULT_OUTPUT_DIRECTORY + EnsureTrailingSlash(packageDirectory);
+            if(!Directory.Exists(rootDirectory + Constants.PATCH_FILES_DIRECTORY)) {
                 Directory.CreateDirectory(rootDirectory + Constants.PATCH_FILES_DIRECTORY);
             }
-            if (!Directory.Exists(rootDirectory + Constants.DOCUMENTS_DIRECTORY)) {
+            if(!Directory.Exists(rootDirectory + Constants.DOCUMENTS_DIRECTORY)) {
                 Directory.CreateDirectory(rootDirectory + Constants.DOCUMENTS_DIRECTORY);
             }
         }
 
         private static void EnsureDirectoryExists(string directory) {
-            if (!Directory.Exists(directory)) {
+            if(!Directory.Exists(directory)) {
                 Directory.CreateDirectory(directory);
             }
         }
@@ -40,13 +40,13 @@ namespace PatchBuilder.NET {
         }
 
         public static void BuildDeployFile(string packageDirectory, string processFile) {
-            string[] files = File.ReadAllLines(processFile);
-            foreach (string file in files) {
+            var files = File.ReadAllLines(processFile);
+            foreach(var file in files) {
                 FilesToDeploy.Append(file + Environment.NewLine);
-                if (file.Contains("dll")) {
+                if(file.Contains(Constants.DLL_EXTENSION)) {
                     //Also deploy the pdb
-                    int lastDot = file.LastIndexOf('.');
-                    string pdbFilename = file.Substring(0, lastDot) + ".pdb";
+                    var lastDot = file.LastIndexOf('.');
+                    var pdbFilename = file.Substring(0, lastDot) + Constants.PERIOD + Constants.PDB_EXTENSION;
                     FilesToDeploy.Append(pdbFilename + Environment.NewLine);
                 }
             }

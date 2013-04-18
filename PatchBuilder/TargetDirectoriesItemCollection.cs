@@ -30,18 +30,18 @@ namespace PatchBuilder.NET {
         }
 
         public void Append(string name, string stringToAppend) {
-            TargetDirectoriesItem itemToAppendTo = GetItem(name);
+            var itemToAppendTo = GetItem(name);
             itemToAppendTo.StringBuilder.Append(stringToAppend + Environment.NewLine);
         }
 
         public void WriteToDisk(string outDirectory) {
             FileWriter.CleanDirectory(outDirectory);
-            foreach(TargetDirectoriesItem item in Collection) {
-                string content = item.StringBuilder.ToString();
+            foreach(var item in Collection) {
+                var content = item.StringBuilder.ToString();
                 FileWriter.Write(outDirectory, item.Name + Constants.TARGETDIRS_SUFFIX, content);
-                if (item.Name.Contains("dll")) {
-                    int lastDot = item.Name.LastIndexOf('.');
-                    string pdbFilename = item.Name.Substring(0, lastDot) + ".pdb";
+                if(item.Name.Contains(Constants.DLL_EXTENSION)) {
+                    var lastDot = item.Name.LastIndexOf('.');
+                    var pdbFilename = item.Name.Substring(0, lastDot) + Constants.PERIOD + Constants.PDB_EXTENSION;
                     FileWriter.Write(outDirectory, pdbFilename + Constants.TARGETDIRS_SUFFIX, content);
                 }
             }

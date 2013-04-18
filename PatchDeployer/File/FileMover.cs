@@ -6,10 +6,10 @@ namespace PatchDeployer.File {
             var fromDir = new DirectoryInfo(from);
             var toDir = new DirectoryInfo(to);
 
-            var fromFiles = fromDir.GetFiles("*.*");
+            var fromFiles = fromDir.GetFiles(Constants.ALL_FILES);
             if (fromFiles.Length > 0) {
-                foreach (FileInfo file in fromFiles) {
-                    string targetFile = toDir + file.Name;
+                foreach (var file in fromFiles) {
+                    var targetFile = toDir + file.Name;
                     if (System.IO.File.Exists(targetFile)) {
                         System.IO.File.Delete(targetFile);
                     }

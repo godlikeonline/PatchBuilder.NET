@@ -9,7 +9,7 @@ namespace PatchDeployer.File {
         public static void WriteFilesToProcess(List<string> files) {
             int i = 0;
             for(; i < files.Count; i++) {
-                if(!files[i].Contains("pdb")) {
+                if(!files[i].Contains(Constants.PDB_EXTENSION)) {
                     if(i != files.Count - 1) {
                         FilesToProcessFile.AppendLine(files[i]);
                     } else {

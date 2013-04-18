@@ -6,14 +6,14 @@ namespace PatchBuilder.NET {
         private static readonly TargetDirectoriesItemCollection TargetDirectoryOutputFiles = new TargetDirectoriesItemCollection();
         
         public static void Main(string[] args) {
-            if (args.Length == 0 || args[0].ToLower().Equals("help")) {
+            if(args.Length == 0 || args[0].ToLower().Equals("help")) {
                 PrintHelp();
             } else {
-                if (args.Length != 2) {
+                if(args.Length != 2) {
                     Console.WriteLine("Must enter 2 arguments.  Enter help as first parameter for assistance.");
                     Environment.Exit(0);
                 } else {
-                    if (!Directory.Exists(args[0])) {
+                    if(!Directory.Exists(args[0])) {
                         Console.WriteLine("Solution directory specified does not exist. Exiting.");
                         Environment.Exit(0);
                     } else {
@@ -22,7 +22,7 @@ namespace PatchBuilder.NET {
                             Console.WriteLine(Constants.PROCESS_FILE + " not found.  Place this file as input in the same directory as this exe.");
                             Environment.Exit(0);
                         }
-                        string[] filesToProcess = File.ReadAllLines(Constants.PROCESS_FILE);
+                        var filesToProcess = File.ReadAllLines(Constants.PROCESS_FILE);
                         WalkDirectoryTree(filesToProcess, args[0], String.Empty, new DirectoryInfo(args[0]));
                         TargetDirectoryOutputFiles.WriteToDisk(args[1]);
 
@@ -45,14 +45,14 @@ namespace PatchBuilder.NET {
             //Now find all the subdirectories under this directory.
             var subDirs = root.GetDirectories();
 
-            foreach (var dirInfo in subDirs) {
+            foreach(var dirInfo in subDirs) {
                 //Recursive call for each subdirectory.
                 WalkDirectoryTree(filesToProcess, appRoot, modifiedPath + dirInfo.Name + Constants.DIR_SEP, dirInfo);
 
-                foreach (string fileToProcess in filesToProcess) {
+                foreach(string fileToProcess in filesToProcess) {
                     TargetDirectoryOutputFiles.Add(fileToProcess);
                     var file = appRoot + Constants.DIR_SEP + modifiedPath + dirInfo.Name + Constants.DIR_SEP + fileToProcess;
-                    if (File.Exists(file)) {
+                    if(File.Exists(file)) {
                         TargetDirectoryOutputFiles.Append(fileToProcess, modifiedPath + dirInfo.Name + Constants.DIR_SEP);
                     }
                 }

@@ -12,5 +12,7 @@
         public const string PERIOD = ".";
         public const string DLL_EXTENSION = "dll";
         public const string PDB_EXTENSION = "pdb";
+        public const string ALL_FILES = "*.*";
+
     }
 }
